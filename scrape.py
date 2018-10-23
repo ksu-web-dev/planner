@@ -72,7 +72,7 @@ def parse_courses(page):
             'instructor': tbody.select_one(f'.st td:nth-of-type(9)').get_text(),
         }
 
-        # Parse the course department and number
+        # Parse the course department, name and number
         course_tbody = tbody.findPreviousSibling()
         while course_tbody['class'][0] != 'course-header':
             course_tbody = course_tbody.findPreviousSibling()
@@ -84,6 +84,7 @@ def parse_courses(page):
             r'([A-Z]*)', department_and_number)[1]
         section['course_number'] = re.search(
             r'[A-Z]*(.*)', department_and_number)[1]
+        section['full_name'] = course_tbody.select('.name')[0].get_text()
 
         # Parse the days
         parsed_days = tbody.select_one(f'.st td:nth-of-type(6)').get_text()
