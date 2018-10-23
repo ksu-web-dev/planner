@@ -48,7 +48,7 @@ def fetch_courses(department):
 
 def parse_departments(page):
     logger.info('Parsing list of departments')
-    soup = BeautifulSoup(page, 'lxml')
+    soup = BeautifulSoup(page, 'html.parser')
 
     for a in soup.select('.ksu-main-content li > a'):
         department = a['href'][:-1]
@@ -58,7 +58,7 @@ def parse_departments(page):
 
 
 def parse_courses(page):
-    soup = BeautifulSoup(page, 'lxml')
+    soup = BeautifulSoup(page, 'html.parser')
 
     for tbody in soup.select('.section'):
         # Parse the easier values from the page
