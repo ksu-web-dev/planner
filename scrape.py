@@ -6,6 +6,8 @@ import db
 import re
 import time
 
+from section import Section
+
 logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger()
@@ -62,15 +64,17 @@ def parse_courses(page):
 
     for tbody in soup.select('.section'):
         # Parse the easier values from the page
-        section = {
-            'section': tbody.select_one(f'.st td:nth-of-type(1)').get_text(),
-            'type': tbody.select_one(f'.st td:nth-of-type(2)').get_text(),
-            'section_number': tbody.select_one(f'.st td:nth-of-type(3)').get_text(),
-            'units': tbody.select_one(f'.st td:nth-of-type(4)').get_text(),
-            'basis': tbody.select_one(f'.st td:nth-of-type(5)').get_text(),
-            'facility': tbody.select_one(f'.st td:nth-of-type(8)').get_text(),
-            'instructor': tbody.select_one(f'.st td:nth-of-type(9)').get_text(),
-        }
+        section = Section(
+            section_letter=tbody.select_one(
+                f'.st td:nth-of-type(1)').get_text(),
+            type=tbody.select_one(f'.st td:nth-of-type(2)').get_text(),
+            section_number=tbody.select_one(
+                f'.st td:nth-of-type(3)').get_text(),
+            units=tbody.select_one(f'.st td:nth-of-type(4)').get_text(),
+            basis=tbody.select_one(f'.st td:nth-of-type(5)').get_text(),
+            facility=tbody.select_one(f'.st td:nth-of-type(8)').get_text(),
+            instructor=tbody.select_one(f'.st td:nth-of-type(9)').get_text(),
+        )
 
         # Parse the course department, name and number
         course_tbody = tbody.findPreviousSibling()
@@ -80,34 +84,34 @@ def parse_courses(page):
         department_and_number = course_tbody.select_one(
             'span.number').get_text()
 
-        section['department'] = re.search(
+        section.department = re.search(
             r'([A-Z]*)', department_and_number)[1]
-        section['course_number'] = re.search(
+        section.course_number = re.search(
             r'[A-Z]*(.*)', department_and_number)[1]
-        section['full_name'] = course_tbody.select('.name')[0].get_text()
+        section.full_name = course_tbody.select('.name')[0].get_text()
 
         # Parse the days
         parsed_days = tbody.select_one(f'.st td:nth-of-type(6)').get_text()
         days = re.findall('[A-Z]+', parsed_days)
 
         if 'M' in days:
-            section['mo'] = True
+            section.mo = True
         if 'T' in days:
-            section['tu'] = True
+            section.tu = True
         if 'W' in days:
-            section['we'] = True
+            section.we = True
         if 'U' in days:
-            section['th'] = True
+            section.th = True
         if 'F' in days:
-            section['fr'] = True
+            section.fr = True
 
         # Parse the times
         parsed_hours = tbody.select_one(f'.st td:nth-of-type(7)').get_text()
         hours = re.findall('[0-9]+:[0-9]+', parsed_hours)
 
         if len(hours) > 1:
-            section['starttime'] = hours[0]
-            section['endtime'] = hours[1]
+            section.start_time = hours[0]
+            section.end_time = hours[1]
             cycle = re.findall('a.m.|p.m.', parsed_hours)
 
             if len(cycle) > 1 or hours[0] == 'p.m.':
@@ -115,15 +119,15 @@ def parse_courses(page):
                 minutes = re.search(':(.*)', hours[1])[1]
 
                 if hour > 12:
-                    section['endtime'] = f'{hour + 12}:{minutes}'
+                    section.endtime = f'{hour + 12}:{minutes}'
 
         # Parse some edge cases
-        if section['facility'] == 'books':
-            section['facility'] = tbody.select_one(
+        if section.facility == 'books':
+            section.facility = tbody.select_one(
                 f'.st td:nth-of-type(10)').get_text()
 
-        if section['instructor'] == 'books':
-            section['instructor'] = tbody.select_one(
+        if section.instructor == 'books':
+            section.instructor = tbody.select_one(
                 f'.st td:nth-of-type(10)').get_text()
 
         logger.debug(section)
