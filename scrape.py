@@ -19,7 +19,7 @@ def main():
 
 
 def start_crawl():
-    db = Database('courses.db')
+    db = Database('data.db')
     finished_departments = db.get_finished_departments()
     all_departments = fetch_departments()
 

@@ -11,5 +11,5 @@ def hello():
 @app.route('/finished', methods=['GET'])
 def get_finished():
     if request.method == 'GET':
-        db = database.Database('courses.db')
+        db = database.Database('data.db')
         return str(db.get_finished_departments())
