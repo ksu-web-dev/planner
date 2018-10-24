@@ -5,6 +5,7 @@ import logging
 from db import Database
 import re
 import time
+import dataclasses
 
 from section import Section
 
@@ -29,7 +30,9 @@ def start_crawl():
         page = fetch_courses(department)
 
         for course in parse_courses(page):
-            db.insert_course(course)
+            course_data = dataclasses.astuple(course)
+            logger.debug(course_data)
+            db.insert_course(course_data)
 
         db.finish_department(department)
         time.sleep(1)

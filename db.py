@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class Database():
     def __init__(self, db):
         self.db = db
@@ -15,6 +16,29 @@ class Database():
         self.conn.commit()
 
     def insert_course(self, course):
+        self.c.execute("""
+        insert into sections (
+            department,
+            course_number,
+            full_name,
+            type,
+            instructor,
+            section_letter,
+            section_number,
+            start_time,
+            end_time,
+            facility,
+            basis,
+            units_min,
+            units_max,
+            mo,
+            tu,
+            we,
+            th,
+            fr
+        ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, course)
+        self.conn.commit()
         pass
 
     def __del__(self):
