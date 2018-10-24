@@ -71,7 +71,6 @@ def parse_courses(page):
             type=tbody.select_one(f'.st td:nth-of-type(2)').get_text(),
             section_number=tbody.select_one(
                 f'.st td:nth-of-type(3)').get_text(),
-            units=tbody.select_one(f'.st td:nth-of-type(4)').get_text(),
             basis=tbody.select_one(f'.st td:nth-of-type(5)').get_text(),
             facility=tbody.select_one(f'.st td:nth-of-type(8)').get_text(),
             instructor=tbody.select_one(f'.st td:nth-of-type(9)').get_text(),
@@ -91,6 +90,17 @@ def parse_courses(page):
             r'[A-Z]*(.*)', department_and_number)[1]
         section.full_name = course_tbody.select('.name')[0].get_text()
 
+        # Parse the number of units
+        parsed_units = tbody.select_one(f'.st td:nth-of-type(4)').get_text(),
+        
+        if (len(parsed_units) == 1):
+            section.units_min = parsed_units[0]
+            section.units_max = parsed_units[0]
+        else:
+            units = re.search(r'([0-9]*):([0-9]*)', parsed_units)
+            section.units_min = units[1]
+            section.units_max = units[2]
+        
         # Parse the days
         parsed_days = tbody.select_one(f'.st td:nth-of-type(6)').get_text()
         days = re.findall('[A-Z]+', parsed_days)

@@ -2,18 +2,19 @@ from dataclasses import dataclass
 
 @dataclass
 class Section:
-    section_letter: str = ''
+    department: str = ''
+    course_number: int = 0
+    full_name: str = ''
+    instructor: str = ''
     type: str = ''
-    units: str = ''
-    basis: str = ''
-    facility: str = ''
+    section_letter: str = ''
     start_time: str = ''
     end_time: str = ''
-    instructor: str = ''
-    full_name: str = ''
-    section_number: str = ''
-    course_number: int = 0
-    department: str = ''
+    facility: str = ''
+    basis: str = ''
+    units_min: int = 0
+    units_max: int = 0
+    section_number: int = 0
     mo: bool = False
     tu: bool = False
     we: bool = False
