@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 import logging
-import db
+from db import Database
 import re
 import time
 
@@ -18,6 +18,7 @@ def main():
 
 
 def start_crawl():
+    db = Database('courses.db')
     finished_departments = db.get_finished_departments()
     all_departments = fetch_departments()
 
