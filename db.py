@@ -7,6 +7,14 @@ class Database():
         self.conn = sqlite3.connect(self.db)
         self.c = self.conn.cursor()
 
+    def get_course_sections(self, course_number, department):
+        self.c.execute("select * from sections where course_number = (?) and department = (?)", (course_number, department))
+        return self.c.fetchall()
+
+    def get_courses(self):
+        self.c.execute('select department, course_number from sections;')
+        return self.c.fetchall()
+
     def get_finished_departments(self):
         self.c.execute('select name from finished;')
         return self.c.fetchall()
