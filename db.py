@@ -23,7 +23,11 @@ class Database():
         self.c.execute('insert into finished values (?)', (name,))
         self.conn.commit()
 
-    def insert_course(self, course):
+    def get_sections(self):
+        self.c.execute('select * from sections')
+        return self.c.fetchall()
+
+    def insert_section(self, course):
         self.c.execute("""
         insert into sections (
             department,
@@ -47,7 +51,6 @@ class Database():
         ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, course)
         self.conn.commit()
-        pass
 
     def __del__(self):
         self.conn.close()

@@ -9,9 +9,20 @@ import dataclasses
 
 from section import Section
 
-logging.basicConfig(
-    format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+ch.setFormatter(formatter)
+
+fh = logging.FileHandler('log.txt')
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)
+
 logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+logger.addHandler(fh)
+logger.addHandler(ch)
 
 
 def main():
@@ -32,7 +43,7 @@ def start_crawl():
         for course in parse_courses(page):
             course_data = dataclasses.astuple(course)
             logger.debug(course_data)
-            db.insert_course(course_data)
+            db.insert_section(course_data)
 
         db.finish_department(department)
         time.sleep(1)
@@ -95,15 +106,15 @@ def parse_courses(page):
 
         # Parse the number of units
         parsed_units = tbody.select_one(f'.st td:nth-of-type(4)').get_text(),
-        
+
         if (len(parsed_units) == 1):
             section.units_min = parsed_units[0]
             section.units_max = parsed_units[0]
         else:
-            units = re.search(r'([0-9]*):([0-9]*)', parsed_units)
+            units = re.search(r'([0-9]*)-([0-9]*)', parsed_units)
             section.units_min = units[1]
             section.units_max = units[2]
-        
+
         # Parse the days
         parsed_days = tbody.select_one(f'.st td:nth-of-type(6)').get_text()
         days = re.findall('[A-Z]+', parsed_days)
