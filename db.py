@@ -19,7 +19,7 @@ class Database():
         self.c.execute('select * from sections')
         return self.c.fetchall()
 
-    def insert_course(self, course):
+    def insert_section(self, course):
         self.c.execute("""
         insert into sections (
             department,

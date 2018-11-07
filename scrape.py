@@ -43,7 +43,7 @@ def start_crawl():
         for course in parse_courses(page):
             course_data = dataclasses.astuple(course)
             logger.debug(course_data)
-            db.insert_course(course_data)
+            db.insert_section(course_data)
 
         db.finish_department(department)
         time.sleep(1)
