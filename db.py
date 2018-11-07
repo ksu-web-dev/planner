@@ -43,7 +43,6 @@ class Database():
         ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, course)
         self.conn.commit()
-        pass
 
     def __del__(self):
         self.conn.close()
