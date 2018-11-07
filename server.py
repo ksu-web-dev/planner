@@ -13,14 +13,14 @@ def hello():
 @app.route('/finished', methods=['GET'])
 def get_finished():
     if request.method == 'GET':
-        db = database.Database('data.db')
+        db = database.Database('courses.db')
         finished_departments = db.get_finished_departments()
         return str(finished_departments)
 
 @app.route('/courses', methods=['GET'])
 def get_courses():
     if request.method == 'GET':
-        db = database.Database('data.db')
+        db = database.Database('courses.db')
         data = db.get_courses()
         dict = []
         for x in data:
@@ -37,7 +37,7 @@ def get_class():
     if request.method == 'GET':
         department = request.args.get('department')
         course_number = request.args.get('course_number')
-        db = database.Database('data.db')
+        db = database.Database('courses.db')
         
         data = db.get_course_sections(course_number, department)
         dict = []
