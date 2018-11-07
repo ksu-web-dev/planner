@@ -15,6 +15,10 @@ class Database():
         self.c.execute('insert into finished values (?)', (name,))
         self.conn.commit()
 
+    def get_sections(self):
+        self.c.execute('select * from sections')
+        return self.c.fetchall()
+
     def insert_course(self, course):
         self.c.execute("""
         insert into sections (
