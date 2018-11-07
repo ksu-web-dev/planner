@@ -8,7 +8,8 @@ class Database():
         self.c = self.conn.cursor()
 
     def get_course_sections(self, course_number, department):
-        self.c.execute("select * from sections where course_number = (?) and department = (?)", (course_number, department))
+        self.c.execute(
+            "select * from sections where course_number = (?) and department = (?)", (course_number, department))
         return self.c.fetchall()
 
     def get_courses(self):

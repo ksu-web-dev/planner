@@ -1,5 +1,5 @@
 from flask import Flask, request
-import db as database
+import scheduling.db as database
 import json
 
 app = Flask(__name__)
@@ -13,14 +13,15 @@ def hello():
 @app.route('/finished', methods=['GET'])
 def get_finished():
     if request.method == 'GET':
-        db = database.Database('courses.db')
+        db = database.Database('data.db')
         finished_departments = db.get_finished_departments()
         return str(finished_departments)
+
 
 @app.route('/courses', methods=['GET'])
 def get_courses():
     if request.method == 'GET':
-        db = database.Database('courses.db')
+        db = database.Database('data.db')
         data = db.get_courses()
         dict = []
         for x in data:
@@ -32,13 +33,14 @@ def get_courses():
         json_string = json.dumps(dict)
         return json_string
 
+
 @app.route('/class', methods=['GET'])
 def get_class():
     if request.method == 'GET':
         department = request.args.get('department')
         course_number = request.args.get('course_number')
         db = database.Database('courses.db')
-        
+
         data = db.get_course_sections(course_number, department)
         dict = []
         for x in data:
@@ -66,5 +68,3 @@ def get_class():
 
         json_string = json.dumps(dict)
         return json_string
-
-        return json.dumps(data)

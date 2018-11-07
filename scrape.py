@@ -2,12 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 import logging
-from db import Database
 import re
 import time
 import dataclasses
 
-from section import Section
+from scheduling import Database
+from scheduling import Section
 
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
