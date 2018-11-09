@@ -76,6 +76,7 @@ def parse_departments(page):
 
 def parse_courses(page):
     soup = BeautifulSoup(page, 'html.parser')
+    logging.info('Parsing sections from course page')
 
     for tbody in soup.select('.section'):
         # Parse the easier values from the page
