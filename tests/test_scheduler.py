@@ -1,5 +1,5 @@
 import unittest
-from scheduling.scheduler import Scheduler
+from scheduling import Scheduler
 
 
 class TestScheduler(unittest.TestCase):
@@ -7,4 +7,5 @@ class TestScheduler(unittest.TestCase):
         self.s = Scheduler()
 
     def test_schedule(self):
-        pass
+        schedules = self.s.schedule([{"department": "ART", "course_number": 210}, {
+            "department": "GEOL", "course_number": 102}])

@@ -22,11 +22,7 @@ create table sections (
     basis text,
     units_min integer,
     units_max integer,
-    mo integer,
-    tu integer,
-    we integer,
-    th integer,
-    fr integer
+    days integer
 )
 """)
 
