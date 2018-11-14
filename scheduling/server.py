@@ -4,7 +4,6 @@ import json
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def hello():
     return 'Hello, World\n'
@@ -39,7 +38,7 @@ def get_class():
     if request.method == 'GET':
         department = request.args.get('department')
         course_number = request.args.get('course_number')
-        db = database.Database('courses.db')
+        db = database.Database('data.db')
 
         data = db.get_course_sections(course_number, department)
         dict = []
