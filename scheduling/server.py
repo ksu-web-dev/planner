@@ -1,5 +1,6 @@
 from flask import Flask, request
 import scheduling.db as database
+import scheduling.scheduler as scheduler
 import json
 
 app = Flask(__name__)
@@ -67,3 +68,15 @@ def get_class():
 
         json_string = json.dumps(dict)
         return json_string
+
+
+@app.route('/schedule', methods=['POST'])
+def get_schedule():
+    if request.method == 'POST':
+        course_data = request.data
+
+        sched = scheduler.Scheduler()
+        schedules = sched.schedule(json.loads(course_data))
+
+        #return json.dumps(json.loads(schedules))
+        return ""
