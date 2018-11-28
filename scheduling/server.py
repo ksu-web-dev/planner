@@ -2,8 +2,10 @@ from flask import Flask, request
 import scheduling.db as database
 import scheduling.scheduler as scheduler
 import json
+import time
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def hello():
@@ -77,6 +79,21 @@ def get_schedule():
 
         sched = scheduler.Scheduler()
         schedules = sched.schedule(json.loads(course_data))
+        data = []
 
-        #return json.dumps(json.loads(schedules))
-        return ""
+        for s in schedules:
+            schedule_data = []
+
+            for section in s:
+                schedule_data.append({
+                    'department': section.department,
+                    'course_number': section.course_number,
+                    'name': section.full_name,
+                    'start_time': section.start_time,
+                    'end_time': section.end_time,
+                    'days': section.days
+                })
+
+            data.append(schedule_data)
+
+        return json.dumps(data)
