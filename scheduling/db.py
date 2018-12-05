@@ -16,7 +16,7 @@ class Database():
         query = f'insert into {table} ({fields}) values ({values[:-1]})'
         return query
 
-    def get_course_sections(self, course_number, department):
+    def get_course_sections(self, department, course_number):
         self.c.execute(
             "select * from sections where course_number = (?) and department = (?)", (course_number, department))
         sections = self.c.fetchall()
