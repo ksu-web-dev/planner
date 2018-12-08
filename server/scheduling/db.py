@@ -1,13 +1,15 @@
 import sqlite3
 import logging
+from flask import Flask
+import os
 
 
 class Database():
     def __init__(self, db):
         self.db = db
-        self.conn = sqlite3.connect(self.db)
+        app = Flask(__name__)
+        self.conn = sqlite3.connect(os.path.join(app.root_path, self.db))
         self.c = self.conn.cursor()
-        logging.config.fileConfig('logging.ini')
         self.logger = logging.getLogger(__name__)
 
     def insert_query(self, table, params):

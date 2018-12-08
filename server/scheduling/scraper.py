@@ -11,7 +11,6 @@ from scheduling import Section
 class Scraper:
     def __init__(self, db='data.db'):
         self.db = Database(db)
-        logging.config.fileConfig('logging.ini')
         self.logger = logging.getLogger(__name__)
 
     def scrape(self):
@@ -31,6 +30,7 @@ class Scraper:
 
             self.db.finish_department(department)
             time.sleep(1)
+            break
 
     def fetch_departments(self):
         url = 'https://courses.k-state.edu/spring2019/schedule.html'
