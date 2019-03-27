@@ -4,3 +4,4 @@ courses.db
 log.txt
 debug.log
 .vscode
+.venv
