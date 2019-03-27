@@ -4,8 +4,8 @@ import requests
 import logging
 import time
 from bs4 import BeautifulSoup
-from scheduling import Database
-from scheduling import Section
+from . import Database
+from . import Section
 
 
 class Scraper:
@@ -30,7 +30,6 @@ class Scraper:
 
             self.db.finish_department(department)
             time.sleep(1)
-            break
 
     def fetch_departments(self):
         url = 'https://courses.k-state.edu/spring2019/schedule.html'

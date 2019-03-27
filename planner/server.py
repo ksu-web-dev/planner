@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
-import scheduling.db as database
-from scheduling.scheduler import Scheduler
-import scheduling.views as views
-from scheduling.section import Section
+import .db as database
+from .scheduler import Scheduler
+import .views as views
+from .section import Section
 from functools import wraps
 import json
 import time

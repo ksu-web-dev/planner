@@ -1,5 +1,5 @@
 import unittest
-from scheduling import Scraper
+from . import Scraper
 import datetime
 
 

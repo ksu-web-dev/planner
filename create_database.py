@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('data.db')
+conn = sqlite3.connect('planner/data.db')
 c = conn.cursor()
 
 c.execute('drop table if exists finished;')

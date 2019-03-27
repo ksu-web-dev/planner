@@ -1,5 +1,5 @@
 import logging.config
-from scheduling import Scraper
+from planner import Scraper
 
 s = Scraper()
 s.scrape()
