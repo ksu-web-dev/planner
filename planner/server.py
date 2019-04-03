@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import planner.db as database
 from planner.scheduler import Scheduler
 import planner.views as views
@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Hello, World\n'
+    #return 'Hello, World\n'
+    return render_template('welcome.html')
 
 
 @app.route('/courses', methods=['GET'])

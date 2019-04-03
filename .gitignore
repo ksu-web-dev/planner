@@ -5,3 +5,5 @@ log.txt
 debug.log
 .vscode
 .venv
+.DS_Store
+*.pyc
