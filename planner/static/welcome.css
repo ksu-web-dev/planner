@@ -1,0 +1,52 @@
+#title-area {
+
+}
+.title {
+	color: #582C83;
+	font-size: 42;
+}
+.description {
+	color: #ACB2BA;
+	font-size: 16;
+}
+
+
+#term-select {
+	margin-top: 25px;
+	margin-left: 3px;
+}
+.term-select {
+	margin-top: 15px;
+	height: 41px;
+	display: flex;
+	border-radius: 4px;
+}
+.term-option {
+	background-color: #E5E5E5;
+	padding-left: 15px;
+	padding-right: 15px;
+	line-height: 41px;
+}
+.term-option:nth-child(1) {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.term-option:nth-child(3) {
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.term-option:hover {
+	background-color: #582C83;
+	color: white;
+}
+
+.selected {
+	background-color: #582C83;
+	color: white;
+}
+
+#course-search {
+	margin-top: 25px;
+	margin-left: 3px;
+}

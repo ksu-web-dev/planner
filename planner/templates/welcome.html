@@ -1,7 +1,36 @@
 {% extends "layout.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='welcome.js') }}"></script>
+{% endblock %}
+
 {% block body %}
-	<div class="title-area">
+	
+	<div><!-- id="title-area"> -->
 		<div class="title"> K-State Planner </div>
-		<div class="description"> </div>
+		<div class="description"> Start by selecting a term below then enter either course name or combination of departmet and course number. You can also browse the course catalog. </div>
 	</div>
+
+    <div id="term-select">
+    	<div class="sub-title">Term</div>
+    	<div class="term-select">
+    		<div class="term-option selected">
+    			Spring 2019
+    		</div>
+    		<div class="term-option">
+    			Fall 2018
+    		</div>
+    		<div class="term-option">
+    			Summer 2018
+    		</div>
+    	</div>
+    </div>
+
+    <div id="course-search">
+    	<div class="sub-title">Courses</div>
+    	<div class="search-bar"></div>
+    	<div class="search-dropdown"></div>
+    </div>
+
 {% endblock %}
